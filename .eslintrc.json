@@ -1,0 +1,28 @@
+{
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:vue/vue3-strongly-recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": ["vue"],
+    "rules": {
+      // "no-console": "error",
+      "no-unused-vars": "off",
+      "vue/no-unused-vars": "error",
+      "vue/multiline-html-element-content-newline": "off",
+      "vue/require-default-prop": "off",
+      "vue/no-v-for-template-key": "off",
+      "vue/require-explicit-emits": "off",
+      "vue/multi-word-component-names": "warn",
+      "no-unused-expressions": 0
+    }
+  }
