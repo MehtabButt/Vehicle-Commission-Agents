@@ -89,11 +89,13 @@
       </div>
     </div>
   </div>
+  <Modal></Modal>
 </template>
 
 <script setup>
 import Member from '@/components/Deal/Member.vue';
 import Vehicle from '@/components/Deal/Vehicle.vue';
+import Modal from '@/components/Modal/ModalConfirmation.vue';
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import { isEmpty } from '@/composables/utility.js';
