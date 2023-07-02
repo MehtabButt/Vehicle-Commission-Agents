@@ -13,6 +13,7 @@ import IconDelete from '@/components/Icons/IconDelete';
 import IconEdit from '@/components/Icons/IconEdit';
 import IconCross from '@/components/Icons/IconCross';
 import IconError from '@/components/Icons/IconError';
+import IconAlert from '@/components/Icons/IconAlert';
 import '@/index.css';
 import 'animate.css';
 import router from '@/routes';
@@ -34,6 +35,7 @@ app.component('IconDelete', IconDelete);
 app.component('IconEdit', IconEdit);
 app.component('IconCross', IconCross);
 app.component('IconError', IconError);
+app.component('IconAlert', IconAlert);
 
 app.config.globalProperties.$eventHub = {
   $on: (...args) => emitter.on(...args),

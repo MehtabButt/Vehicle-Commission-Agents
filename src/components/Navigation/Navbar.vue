@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full">
-    <nav class="bg-gray-700 px-2 sm:px-4 fixed w-full z-20 top-0 left-0 border-gray-200">
+    <nav class="bg-gray-700 px-2 sm:px-4 fixed w-full z-[100] top-0 left-0 border-gray-200">
       <div class="flex items-center justify-between">
         <div class="uppercase text-gray-300 text-4xl font-semibold antialiased font-serif">Commission Agents</div>
         <div class="flex flex-row space-x-3 h-10 items-center">
@@ -55,11 +55,13 @@
       </ul>
     </div>
   </div>
+  <ModalConfirmation />
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import ModalConfirmation from '@/components/Modal/ModalConfirmation.vue';
 
 const flip = ref(false);
 const router = useRouter();

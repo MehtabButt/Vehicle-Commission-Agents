@@ -37,6 +37,13 @@ export default createStore({
         contact: '',
         cnic: ''
       }
+    },
+    confirmationDialogOptions: {
+      show: false,
+      resolve: null,
+      message: 'Are you sure?',
+      confirmText: 'Proceed',
+      rejectText: 'Cancel'
     }
   },
   mutations: {
@@ -91,10 +98,43 @@ export default createStore({
           cnic: ''
         }
       };
+    },
+    setConfirmationDialogOptions(state, payload) {
+      let defaultOptions = state.confirmationDialogOptions;
+      state.confirmationDialogOptions = { ...defaultOptions, ...payload, show: true };
+    },
+    resetConfirmationDialogOptions(state) {
+      state.confirmationDialogOptions = {
+        show: false,
+        resolve: null,
+        message: 'Are you sure?',
+        confirmText: 'Proceed',
+        rejectText: 'Cancel'
+      };
+    },
+    resolveConfirmation(state, payload) {
+      state.confirmationDialogOptions.show = false;
+      state.confirmationDialogOptions.resolve = payload;
     }
   },
   actions: {
-    // define your actions here
+    confirm: ({ commit, state }, payload) => {
+      commit('setConfirmationDialogOptions', payload);
+      return new Promise((resolve, reject) => {
+        const interval = setInterval(() => {
+          let resolveStatus = state.confirmationDialogOptions.resolve;
+          if (resolveStatus !== null) {
+            if (resolveStatus) {
+              resolve(true);
+            } else {
+              reject(true);
+            }
+            commit('resetConfirmationDialogOptions');
+            clearInterval(interval);
+          }
+        }, 250);
+      });
+    }
   },
   modules: {
     // define your modules here
