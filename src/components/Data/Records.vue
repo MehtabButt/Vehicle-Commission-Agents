@@ -31,10 +31,13 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import DataTable from '@/components/Data/DataTable.vue';
 import CustomTooltip from '@/components/Tooltips/CustomTooltip.vue';
 import { isEmpty } from 'lodash';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 // COLUMN DEFS
 const columnDefs = ref([
@@ -152,14 +155,16 @@ async function deleteRow(data) {
 async function updateRow(data, id) {
   if (data == undefined || data == null || id == undefined || id == null || (validationChecks.value[id] && !isEmpty(validationChecks.value[id])))
     return false;
-  try {
-    const res = await window.Api.updateRecord(data);
-    if (res.status == 500) return false;
-    await gridApi.value.applyTransactionAsync({ update: [JSON.parse(res.deal)] });
-    clearValidationChecks(id);
-    return true;
-  } catch (error) {
-    return false;
-  }
+  return await store.dispatch('confirm', { message: 'Please confirm if you want to update record.', confirmText: 'Update' }).then(async () => {
+    try {
+      const res = await window.Api.updateRecord(data);
+      if (res.status == 500) return false;
+      await gridApi.value.applyTransactionAsync({ update: [JSON.parse(res.deal)] });
+      clearValidationChecks(id);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  });
 }
 </script>

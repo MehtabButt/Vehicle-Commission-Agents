@@ -1,5 +1,5 @@
 const { Member, Vehicle, Deal, sequelize } = require('../models/index');
-const useGlobal = true;
+const useGlobal = false;
 const globalParams = {
   BusinessId: null,
   buyer: {

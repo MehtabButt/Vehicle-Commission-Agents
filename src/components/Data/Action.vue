@@ -17,7 +17,9 @@
 <script setup>
 import { computed } from 'vue';
 import { fetchRecord } from '@/composables/api.js';
+import { useStore } from 'vuex';
 
+const store = useStore();
 const props = defineProps({
   params: Object
 });
@@ -53,11 +55,12 @@ async function crossEdit() {
     document.getElementById(`${crossBtnId.value}`)?.classList.add('hidden');
   }
 }
-async function deleteRow() {
-  await props.params.context.deleteRow(rowData.value);
+function deleteRow() {
+  store.dispatch('confirm', { message: 'Please confirm if you want to delete record.', confirmText: 'Delete' }).then(async () => {
+    await props.params.context.deleteRow(rowData.value);
+  });
 }
 async function updateRow() {
-  const res = await props.params.context.updateRow(rowData.value, rowIdx.value);
-  if (res) crossEdit();
+  if (await props.params.context.updateRow(rowData.value, rowIdx.value)) crossEdit();
 }
 </script>
