@@ -8,7 +8,7 @@ contextBridge.exposeInMainWorld('Api', {
   validateVehicle: params => ipcRenderer.invoke('validateVehicle', params),
   validateSeller: params => ipcRenderer.invoke('validateSeller', params),
   validateWitness: params => ipcRenderer.invoke('validateWitness', params),
-  validateWitnessAndCreateDeal: params => ipcRenderer.invoke('validateWitnessAndCreateDeal', params),
+  createDeal: params => ipcRenderer.invoke('createDeal', params),
   fetchRecords: () => ipcRenderer.invoke('fetchRecords'),
   fetchRecord: params => ipcRenderer.invoke('fetchRecord', params),
   deleteRecord: params => ipcRenderer.invoke('deleteRecord', params),

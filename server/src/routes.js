@@ -10,7 +10,7 @@ module.exports = ipcMain => {
   ipcMain.handle('validateVehicle', DealController.validateVehicle);
   ipcMain.handle('validateSeller', DealController.validateSeller);
   ipcMain.handle('validateWitness', DealController.validateWitness);
-  ipcMain.handle('validateWitnessAndCreateDeal', DealController.validateWitnessAndMakeDeal);
+  ipcMain.handle('createDeal', DealController.createDeal);
   ipcMain.handle('fetchRecords', DataController.fetchRecords);
   ipcMain.handle('fetchRecord', DataController.fetchRecord);
   ipcMain.handle('deleteRecord', DataController.deleteRecord);

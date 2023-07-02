@@ -1,5 +1,5 @@
 const { Member, Vehicle, Deal, sequelize } = require('../models/index');
-const useGlobal = false;
+const useGlobal = true;
 const globalParams = {
   BusinessId: null,
   buyer: {
@@ -82,31 +82,30 @@ async function validateWitness(event, params) {
   }
 }
 
-async function validateWitnessAndMakeDeal(event, params) {
+async function createDeal(event, params) {
   if (useGlobal) params = globalParams;
   else params = JSON.parse(params);
-  validateWitness(params.witness);
-  for (let i = 0; i < 100; i++) {
-    const t = await sequelize.transaction();
-    try {
-      const deal = await Deal.create({}, { transaction: t });
-      if (!params.buyer.firstName && !params.seller.firstName) throw new Error('Buyer and Seller both are missing');
-      await deal.createBuyer(params.buyer, { transaction: t, isOptional: !params.buyer.firstName });
-      await deal.createSeller(params.seller, { transaction: t, isOptional: !params.seller.firstName });
-      await deal.createWitness(params.witness, { transaction: t, isWitness: true });
-      await deal.createVehicle(params.vehicle, { transaction: t });
-      await t.commit();
-      // return { status: 200 };
-    } catch (err) {
-      await t.rollback();
-      // return { status: 500, error: err.errors };
-    }
+  const t = await sequelize.transaction();
+  try {
+    const deal = await Deal.create({}, { transaction: t });
+    if (!params.buyer.firstName && !params.seller.firstName) throw new Error('Buyer and Seller both are missing');
+    await deal.createBuyer(params.buyer, { transaction: t, isOptional: !params.buyer.firstName });
+    await deal.createSeller(params.seller, { transaction: t, isOptional: !params.seller.firstName });
+    await deal.createWitness(params.witness, { transaction: t, isWitness: true });
+    await deal.createVehicle(params.vehicle, { transaction: t });
+    await t.commit();
+    // return { status: 200 };
+  } catch (err) {
+    await t.rollback();
+    // return { status: 500, error: err.errors };
   }
+  // for (let i = 0; i < 100; i++) {
+  // }
 }
 module.exports = {
   validateBuyer,
   validateVehicle,
   validateSeller,
   validateWitness,
-  validateWitnessAndMakeDeal
+  createDeal
 };

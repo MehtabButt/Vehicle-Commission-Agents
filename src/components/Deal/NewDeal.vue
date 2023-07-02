@@ -71,7 +71,7 @@
             class="text-white rounded-l-md border-r py-2 px-3"
             :class="[currentIndex == 0 ? 'bg-gray-500' : 'bg-gray-700 hover:bg-gray-800']"
             :disabled="currentIndex == 0"
-            @click="goPre"
+            @click="goPre(1)"
           >
             <div class="flex flex-row align-middle">
               <icon-left-arrow class="w-5 mr-2" />
@@ -139,10 +139,15 @@ async function validate() {
         return false;
       }
     case 3:
-      res = await window.Api.validateWitnessAndCreateDeal(JSON.stringify(deal.value));
-      if (res.status == 200) return true;
-      else {
-        console.log(res);
+      res = await window.Api.validateWitness(JSON.stringify(deal.value.witness));
+      if (res.status == 200) {
+        store.dispatch('confirm', { message: 'Please confirm if you want to save.', confirmText: 'Save' }).then(async () => {
+          await window.Api.createDeal(JSON.stringify(deal.value));
+          store.commit('resetDeal');
+          goPre(3);
+        });
+        return true;
+      } else {
         errorRes.value = res.error;
         return false;
       }
@@ -173,23 +178,21 @@ async function goNext() {
         animate(nextEl, 'animate__fadeInLeft');
       }, 500);
       currentIndex.value += 1;
-    } else {
-      store.commit('resetDeal');
-      goPre(3);
     }
   }
 }
-function goPre() {
+function goPre(step) {
+  errorRes.value = [];
   const currEl = document.querySelector(`[data-index="${currentIndex.value}"`);
-  const preEl = document.querySelector(`[data-index="${currentIndex.value - 1}"`);
+  const preEl = document.querySelector(`[data-index="${currentIndex.value - step}"`);
   animate(currEl, 'animate__fadeOutLeft');
   setTimeout(() => {
     preEl.classList.remove('hidden');
     currEl.classList.add('hidden');
     animate(preEl, 'animate__fadeInRightBig');
   }, 500);
-  currentIndex.value -= 1;
-  if (currentIndex.value == 0 && skip.value == 'buyer') skip.value = null;
+  currentIndex.value -= step;
+  if (currentIndex.value == 0 && skip.value) skip.value = null;
   if (currentIndex.value == 2 && skip.value == 'seller') skip.value = null;
 }
 

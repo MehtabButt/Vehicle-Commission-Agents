@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!options.show"
+    v-if="options.show"
     class="fixed top-0 right-0 left-0 z-[9999] p-4 overflow-x-hidden overflow-y-auto h-full flex justify-center items-center backdrop-blur-md"
   >
     <div class="bg-white w-1/4 mx-auto drop-shadow-md rounded-lg p-5">
