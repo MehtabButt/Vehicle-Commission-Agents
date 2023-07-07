@@ -12,5 +12,7 @@ contextBridge.exposeInMainWorld('Api', {
   fetchRecords: () => ipcRenderer.invoke('fetchRecords'),
   fetchRecord: params => ipcRenderer.invoke('fetchRecord', params),
   deleteRecord: params => ipcRenderer.invoke('deleteRecord', params),
-  updateRecord: params => ipcRenderer.invoke('updateRecord', params)
+  updateRecord: params => ipcRenderer.invoke('updateRecord', params),
+  fetchPersonalData: params => ipcRenderer.invoke('fetchPersonalData', params),
+  updatePersonalData: params => ipcRenderer.invoke('updatePersonalData', params)
 });

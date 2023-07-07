@@ -17,10 +17,6 @@ const props = defineProps({
   params: Object
 });
 
-watch(props.params, () => {
-  console.log(props.params);
-});
-
 onMounted(() => {
   console.log(props.params.value);
 });

@@ -5,3 +5,12 @@
     />
   </svg>
 </template>
+
+<script setup>
+const props = defineProps({
+  size: {
+    type: String,
+    default: 'h-4 w-4'
+  }
+});
+</script>

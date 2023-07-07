@@ -12,9 +12,9 @@ module.exports = {
   async registerBusiness(event, params) {
     const t = await sequelize.transaction();
     try {
-      const business = await Business.build(params.business).validate();
+      const business = await Business.create(params.business, { transaction: t });
       const user = await User.create(params.user, { transaction: t });
-      user.addBusinesses([await business.save({ transaction: t })], { transaction: t });
+      user.setBusiness(business);
       await t.commit();
       return { status: 200, userId: user.id };
     } catch (err) {
@@ -40,8 +40,7 @@ module.exports = {
     }
 
     const user = await User.findOne({
-      where: { email: params.email },
-      include: [Business]
+      where: { email: params.email }
     });
     if (user === null) {
       // return {

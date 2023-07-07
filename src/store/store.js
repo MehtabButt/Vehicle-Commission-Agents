@@ -44,6 +44,20 @@ export default createStore({
       message: 'Are you sure?',
       confirmText: 'Proceed',
       rejectText: 'Cancel'
+    },
+    user: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      currentPassword: ''
+    },
+    business: {
+      companyName: '',
+      address: '',
+      contact: ''
     }
   },
   mutations: {
@@ -115,6 +129,12 @@ export default createStore({
     resolveConfirmation(state, payload) {
       state.confirmationDialogOptions.show = false;
       state.confirmationDialogOptions.resolve = payload;
+    },
+    setUser(state, user) {
+      state.user = { ...state.user, ...user };
+    },
+    setBusiness(state, business) {
+      state.business = business;
     }
   },
   actions: {

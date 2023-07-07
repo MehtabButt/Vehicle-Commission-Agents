@@ -40,7 +40,9 @@
     >
       <ul class="text-sm" aria-labelledby="dropdownDefault">
         <li>
-          <button type="button" class="block w-full text-left py-1 pl-2 font-medium hover:bg-gray-200">Profile</button>
+          <button type="button" class="block w-full text-left py-1 pl-2 font-medium hover:bg-gray-200" @click="$router.push({ name: 'profile' })">
+            Profile
+          </button>
         </li>
         <li>
           <button type="button" class="block w-full text-left font-medium py-1 pl-2 hover:bg-gray-200" @click="$router.push({ name: 'showRecords' })">

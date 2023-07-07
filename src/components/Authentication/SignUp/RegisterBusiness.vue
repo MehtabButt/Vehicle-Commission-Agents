@@ -124,7 +124,7 @@ async function registerBusiness(e) {
   e.preventDefault();
   const res = await window.Api.registerBusiness({
     business: {
-      name: businessName.value,
+      companyName: businessName.value,
       address: businessAddress.value,
       contact: businessContact.value
     },

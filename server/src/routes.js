@@ -15,4 +15,6 @@ module.exports = ipcMain => {
   ipcMain.handle('fetchRecord', DataController.fetchRecord);
   ipcMain.handle('deleteRecord', DataController.deleteRecord);
   ipcMain.handle('updateRecord', DataController.updateRecord);
+  ipcMain.handle('fetchPersonalData', DataController.fetchPersonalData);
+  ipcMain.handle('updatePersonalData', DataController.updatePersonalData);
 };

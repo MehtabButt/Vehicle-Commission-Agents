@@ -1,6 +1,6 @@
 <template>
   <div class="h-full container">
-    <div class="text-2xl font-semibold ml-8 underline">Vehicle Details</div>
+    <div class="text-2xl font-semibold ml-8">Vehicle Details</div>
     <div class="p-10">
       <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 relative">
         <div class="md:col-span-5 w-full flex justify-between space-x-6 absolute">

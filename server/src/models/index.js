@@ -15,7 +15,7 @@ try {
   const User = db.User;
   const Business = db.Business;
 
-  User.hasMany(Business, {
+  User.hasOne(Business, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   });
@@ -49,10 +49,11 @@ try {
     onUpdate: 'CASCADE'
   });
 
+  // Deal.belongsTo(Business);
   // Vehicle.belongsTo(Deal);
-  // Member.belongsTo(Deal, { as: "seller" });
-  // Member.belongsTo(Deal, { as: "buyer" });
-  // Member.belongsTo(Deal, { as: "witness" });
+  // Member.belongsTo(Deal, { as: 'seller' });
+  // Member.belongsTo(Deal, { as: 'buyer' });
+  // Member.belongsTo(Deal, { as: 'witness' });
 } catch (e) {
   console.error(e);
 }

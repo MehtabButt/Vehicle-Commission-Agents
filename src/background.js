@@ -2,8 +2,8 @@
 
 import { app, session, protocol, BrowserWindow, ipcMain } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
-const lodash = require('lodash');
-import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
+// const lodash = require('lodash');
+// import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
 const db = require('../server/src/models/index.js');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const path = require('path');
@@ -64,7 +64,7 @@ app.on('ready', async () => {
   }
 
   db.sequelize
-    .sync({ alter: true })
+    .sync({ alter: false })
     .then(() => {
       console.log('db is sync now');
     })

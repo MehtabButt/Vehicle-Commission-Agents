@@ -2,23 +2,23 @@ module.exports = (sequelize, DataTypes, Model) => {
   class Business extends Model {}
   Business.init(
     {
-      name: {
+      companyName: {
         type: DataTypes.STRING,
         allowNull: false,
 
         notEmpty: true,
         validate: {
           notNull: {
-            msg: "please enter your business name",
+            msg: 'please enter your business name'
           },
           notEmpty: {
-            msg: "please enter your business name",
-          },
+            msg: 'please enter your business name'
+          }
         },
         unique: {
           args: true,
-          msg: "business already exists",
-        },
+          msg: 'business already exists'
+        }
       },
       address: {
         type: DataTypes.STRING,
@@ -26,12 +26,12 @@ module.exports = (sequelize, DataTypes, Model) => {
         notEmpty: true,
         validate: {
           notNull: {
-            msg: "please enter your business address",
+            msg: 'please enter your business address'
           },
           notEmpty: {
-            msg: "please enter your business address",
-          },
-        },
+            msg: 'please enter your business address'
+          }
+        }
       },
       contact: {
         type: DataTypes.STRING,
@@ -39,20 +39,20 @@ module.exports = (sequelize, DataTypes, Model) => {
         notEmpty: true,
         validate: {
           notNull: {
-            msg: "please enter your business contact number",
+            msg: 'please enter your business contact number'
           },
           notEmpty: {
-            msg: "please enter your business contact number",
+            msg: 'please enter your business contact number'
           },
           isMobilePhone: {
-            msg: "conatct number format incorrect",
-          },
-        },
-      },
+            msg: 'conatct number format incorrect'
+          }
+        }
+      }
     },
     {
       sequelize,
-      modelName: "Business",
+      modelName: 'Business'
     }
   );
   return Business;

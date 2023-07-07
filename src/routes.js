@@ -28,6 +28,11 @@ const routes = [
     path: '/data',
     name: 'showRecords',
     component: () => import('@/components/Data/Records.vue')
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('@/components/Profile/UserProfile.vue')
   }
 ];
 

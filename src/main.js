@@ -4,6 +4,7 @@ import Navbar from '@/components/Navigation/Navbar.vue';
 import IconAdmin from '@/components/Icons/IconAdmin.vue';
 import IconDown from '@/components/Icons/IconDown.vue';
 import IconInfo from '@/components/Icons/IconInfo';
+import IconInfoOutlined from '@/components/Icons/IconInfoOutlined';
 import IconStepPending from '@/components/Icons/IconStepPending';
 import IconStepDone from '@/components/Icons/IconStepDone';
 import IconLeftArrow from '@/components/Icons/IconLeftArrow';
@@ -14,6 +15,10 @@ import IconEdit from '@/components/Icons/IconEdit';
 import IconCross from '@/components/Icons/IconCross';
 import IconError from '@/components/Icons/IconError';
 import IconAlert from '@/components/Icons/IconAlert';
+import IconPersonal from '@/components/Icons/IconPersonal';
+import IconBusiness from '@/components/Icons/IconBusiness';
+import IconSave from '@/components/Icons/IconSave';
+
 import '@/index.css';
 import 'animate.css';
 import router from '@/routes';
@@ -26,6 +31,7 @@ app.component('Navbar', Navbar);
 app.component('IconAdmin', IconAdmin);
 app.component('IconDown', IconDown);
 app.component('IconInfo', IconInfo);
+app.component('IconInfoOutlined', IconInfoOutlined);
 app.component('IconStepPending', IconStepPending);
 app.component('IconStepDone', IconStepDone);
 app.component('IconLeftArrow', IconLeftArrow);
@@ -36,6 +42,9 @@ app.component('IconEdit', IconEdit);
 app.component('IconCross', IconCross);
 app.component('IconError', IconError);
 app.component('IconAlert', IconAlert);
+app.component('IconPersonal', IconPersonal);
+app.component('IconBusiness', IconBusiness);
+app.component('IconSave', IconSave);
 
 app.config.globalProperties.$eventHub = {
   $on: (...args) => emitter.on(...args),

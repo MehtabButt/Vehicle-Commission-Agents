@@ -89,6 +89,13 @@ module.exports = (sequelize, DataTypes, Model) => {
       }
     },
     {
+      hooks: {
+        beforeValidate(user, options) {
+          if (options.skipPassword) {
+            user.password = user.confirmPassword = 'TempPassword9129';
+          }
+        }
+      },
       sequelize,
       modelName: 'User'
     }
