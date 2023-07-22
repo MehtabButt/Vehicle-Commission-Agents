@@ -8,6 +8,28 @@ export function allowDigitOnly(event) {
   }
 }
 
+export function titleizeCamelCase(value) {
+  if (value == null || value == undefined) return '';
+  if (value.length) {
+    value = value.replace(/[A-Z]/g, m => ` ${m}`);
+    value = value.charAt(0).toUpperCase() + value.slice(1);
+  }
+  return value;
+}
+
+const options = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  weekday: 'long',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+};
+export function formatDate(date) {
+  return new Date(date).toLocaleString(undefined, options);
+}
+
 // export function exists(value) {
 //   return value != null && value != undefined && value.trim() != '';
 // }

@@ -182,6 +182,15 @@ import BaseTooltip from '@/components/Tooltips/BaseTooltip.vue';
 
 const store = useStore();
 
+// DATA FETCHING
+const user = computed({
+  get: () => store.state.user,
+  set: value => store.commit('setUser', value)
+});
+const business = computed({
+  get: () => store.state.business,
+  set: value => store.commit('setBusiness', value)
+});
 async function fetchInfo() {
   try {
     const response = await window.Api.fetchPersonalData();
@@ -194,16 +203,11 @@ async function fetchInfo() {
     //notify error
   }
 }
-
-const user = computed({
-  get: () => store.state.user,
-  set: value => store.commit('setUser', value)
-});
-const business = computed({
-  get: () => store.state.business,
-  set: value => store.commit('setBusiness', value)
+onMounted(async () => {
+  await fetchInfo();
 });
 
+//SAVING
 const errors = ref({});
 async function handleSave() {
   try {
@@ -225,10 +229,6 @@ async function handleSave() {
     //notify error via flash message
   }
 }
-
-onMounted(async () => {
-  await fetchInfo();
-});
 </script>
 
 <style scoped>

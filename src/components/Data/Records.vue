@@ -1,5 +1,6 @@
 <template>
   <Navbar class="z-[60]"></Navbar>
+  <ExportImport class="pt-10 justify-end m-3" :data="rowData" />
   <DataTable
     :column-defs="columnDefs"
     :default-col-def="{
@@ -25,7 +26,7 @@
     }"
     :context="context"
     :row-data="rowData"
-    class="flex h-[100vh] overflow-hidden pt-10"
+    style="height: calc(100vh - 7rem)"
     @grid-ready="gridApi = $event"
   ></DataTable>
 </template>
@@ -33,6 +34,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import DataTable from '@/components/Data/DataTable.vue';
+import ExportImport from '@/components/Data/ExportImport.vue';
 import CustomTooltip from '@/components/Tooltips/CustomTooltip.vue';
 import { isEmpty } from 'lodash';
 import { useStore } from 'vuex';

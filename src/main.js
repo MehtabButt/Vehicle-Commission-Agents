@@ -18,6 +18,8 @@ import IconAlert from '@/components/Icons/IconAlert';
 import IconPersonal from '@/components/Icons/IconPersonal';
 import IconBusiness from '@/components/Icons/IconBusiness';
 import IconSave from '@/components/Icons/IconSave';
+import IconExport from '@/components/Icons/IconExport';
+import IconImport from '@/components/Icons/IconImport';
 
 import '@/index.css';
 import 'animate.css';
@@ -45,6 +47,8 @@ app.component('IconAlert', IconAlert);
 app.component('IconPersonal', IconPersonal);
 app.component('IconBusiness', IconBusiness);
 app.component('IconSave', IconSave);
+app.component('IconExport', IconExport);
+app.component('IconImport', IconImport);
 
 app.config.globalProperties.$eventHub = {
   $on: (...args) => emitter.on(...args),
