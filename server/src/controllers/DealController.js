@@ -102,10 +102,30 @@ async function createDeal(event, params) {
     }
   }
 }
+
+async function insertRecords(event, params) {
+  const t = await sequelize.transaction();
+  params = JSON.parse(params);
+  try {
+    for (const record of params.records) {
+      const deal = await Deal.create({}, { transaction: t });
+      await deal.createBuyer(record.buyer, { transaction: t });
+      await deal.createSeller(record.seller, { transaction: t });
+      await deal.createWitness(record.witness, { transaction: t });
+      await deal.createVehicle(record.vehicle, { transaction: t });
+    }
+    await t.commit();
+    return { status: 200 };
+  } catch (err) {
+    return { status: 500, error: err.errors };
+  }
+}
+
 module.exports = {
   validateBuyer,
   validateVehicle,
   validateSeller,
   validateWitness,
-  createDeal
+  createDeal,
+  insertRecords
 };

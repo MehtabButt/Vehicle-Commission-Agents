@@ -1,12 +1,14 @@
 <template>
   <div class="flex space-x-2 items-center">
-    <button
-      type="button"
-      class="text-blue-700 flex items-center space-x-2 hover:text-white border border-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-    >
-      <icon-import />
-      <span>Import Records</span>
-    </button>
+    <form enctype="multipart/form-data">
+      <label
+        class="border-blue-700 text-sm hover:bg-blue-800 focus:outline-none font-medium text-center text-blue-700 space-x-2 flex items-center px-5 py-2.5 hover:text-white rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue"
+      >
+        <icon-import />
+        <span>Import Records</span>
+        <input type="file" accept=".xlsb" class="hidden" @change="importData($event)" required />
+      </label>
+    </form>
     <button
       type="button"
       class="px-5 py-2.5 flex items-center space-x-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:outline-none rounded-lg text-center"
@@ -19,9 +21,10 @@
 </template>
 
 <script setup>
-import { writeFile, utils } from 'xlsx';
-import { titleizeCamelCase, formatDate } from '@/composables/utility.js';
+import { read, writeFile, utils } from 'xlsx';
+import { titleizeCamelCase, formatDate, toCamelCase } from '@/composables/utility.js';
 
+const emits = defineEmits(['import:success']);
 const props = defineProps({
   data: {
     type: Object,
@@ -29,6 +32,7 @@ const props = defineProps({
   }
 });
 
+// EXPORTING
 function exportData() {
   const allowedPersonParams = ['firstName', 'lastName', 'fatherName', 'address', 'contact', 'cnic'];
   const allowedVehicleParams = ['buyingPrice', 'sellingPrice', 'registrationNo', 'maker', 'model', 'power', 'chassisNo', 'engineNo'];
@@ -95,6 +99,59 @@ function exportData() {
     writeFile(workbook, 'Vehicle-Commission-Agents.xlsb');
   } else {
     //show error msg
+  }
+}
+
+//IMPORTING
+function formatData(data) {
+  return data.map(d => {
+    return Object.entries(d).reduce(
+      (obj, [key, value]) => {
+        if (key.includes('Buyer')) {
+          obj['buyer'][toCamelCase(key.split('Buyer ')[1])] = value;
+        } else if (key.includes('Seller')) {
+          obj['seller'][toCamelCase(key.split('Seller ')[1])] = value;
+        } else if (key.includes('Witness')) {
+          obj['witness'][toCamelCase(key.split('Witness ')[1])] = value;
+        } else if (key.includes('Vehicle')) {
+          obj['vehicle'][toCamelCase(key.split('Vehicle ')[1])] = value;
+        }
+        return obj;
+      },
+      { buyer: {}, seller: {}, witness: {}, vehicle: {} }
+    );
+  });
+}
+
+async function insertData(data) {
+  const res = await window.Api.insertRecords(JSON.stringify({ records: data }));
+  if (res.status === 200) {
+    emits('import:success');
+    // show success msg
+  } else {
+    // show error msg
+  }
+}
+
+async function importData($event) {
+  let data = null;
+  const files = $event.target.files;
+  if (files.length) {
+    const reader = new FileReader();
+    reader.readAsBinaryString(files[0]);
+    reader.onload = e => {
+      const wb = read(e.target.result, { type: 'binary' });
+      const sheets = wb.SheetNames;
+      if (sheets.length) {
+        data = utils.sheet_to_json(wb.Sheets[sheets[0]]);
+        data = formatData(data);
+        insertData(data);
+      } else {
+        // empty insertion
+      }
+    };
+  } else {
+    // error
   }
 }
 </script>

@@ -17,4 +17,5 @@ module.exports = ipcMain => {
   ipcMain.handle('updateRecord', DataController.updateRecord);
   ipcMain.handle('fetchPersonalData', DataController.fetchPersonalData);
   ipcMain.handle('updatePersonalData', DataController.updatePersonalData);
+  ipcMain.handle('insertRecords', DealController.insertRecords);
 };

@@ -17,6 +17,14 @@ export function titleizeCamelCase(value) {
   return value;
 }
 
+export function toCamelCase(value) {
+  if (value == null || value == undefined) return '';
+  if (value.length) {
+    value = value.replace(/^.|\s/g, m => (+m == 0 ? '' : m.toLowerCase()));
+  }
+  return value;
+}
+
 const options = {
   year: 'numeric',
   month: 'long',
@@ -29,27 +37,3 @@ const options = {
 export function formatDate(date) {
   return new Date(date).toLocaleString(undefined, options);
 }
-
-// export function exists(value) {
-//   return value != null && value != undefined && value.trim() != '';
-// }
-
-// export function isNumber(value) {
-//   return /^\d+$/.test(value);
-// }
-
-// export function isContactNo(value) {
-//   return /^\d{4}-\d{7}$/.test(value);
-// }
-
-// export function isCNIC(value) {
-//   return /^\d{5}-\d{7}-\d$/.test(value);
-// }
-
-// export function isContactNoOrEmpty(value) {
-//   return /^(\d{4}-\d{7})?$/.test(value);
-// }
-
-// export function isCNICOrEmpty(value) {
-//   return /^(\d{5}-\d{7}-\d)?$/.test(value);
-// }

@@ -1,6 +1,6 @@
 <template>
   <Navbar class="z-[60]"></Navbar>
-  <ExportImport class="pt-10 justify-end m-3" :data="rowData" />
+  <ExportImport class="pt-10 justify-end m-3" :data="rowData" @import:success="fetchData" />
   <DataTable
     :column-defs="columnDefs"
     :default-col-def="{
@@ -100,7 +100,7 @@ const columnDefs = ref([
 
 //RECORD FETCHING
 const rowData = ref([]);
-onMounted(async () => {
+async function fetchData() {
   try {
     const res = await window.Api.fetchRecords();
     if (res.status == 200) {
@@ -109,6 +109,9 @@ onMounted(async () => {
   } catch (err) {
     rowData.value = [];
   }
+}
+onMounted(async () => {
+  fetchData();
 });
 
 // VALIDATION
