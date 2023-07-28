@@ -97,6 +97,7 @@ import Vehicle from '@/components/Deal/Vehicle.vue';
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import { isEmpty } from '@/composables/utility.js';
+import { notify } from '@kyvg/vue3-notification';
 
 const store = useStore();
 
@@ -142,9 +143,12 @@ async function validate() {
       res = await window.Api.validateWitness(JSON.stringify(deal.value.witness));
       if (res.status == 200) {
         store.dispatch('confirm', { message: 'Please confirm if you want to save.', confirmText: 'Save' }).then(async () => {
-          await window.Api.createDeal(JSON.stringify(deal.value));
-          store.commit('resetDeal');
-          goPre(3);
+          const res = await window.Api.createDeal(JSON.stringify(deal.value));
+          if (res.status == 200) {
+            notify({ type: 'success', title: 'Success', text: 'Deal saved successfully.' });
+            store.commit('resetDeal');
+            goPre(3);
+          } else notify({ type: 'error', title: 'Error', text: 'Error saving deal.' });
         });
         return true;
       } else {

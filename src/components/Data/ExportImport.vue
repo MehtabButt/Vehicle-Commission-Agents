@@ -23,6 +23,7 @@
 <script setup>
 import { read, writeFile, utils } from 'xlsx';
 import { titleizeCamelCase, formatDate, toCamelCase } from '@/composables/utility.js';
+import { notify } from '@kyvg/vue3-notification';
 
 const emits = defineEmits(['import:success']);
 const props = defineProps({
@@ -127,9 +128,9 @@ async function insertData(data) {
   const res = await window.Api.insertRecords(JSON.stringify({ records: data }));
   if (res.status === 200) {
     emits('import:success');
-    // show success msg
+    notify({ type: 'success', title: 'Success', text: 'Records Imported Successfully' });
   } else {
-    // show error msg
+    notify({ type: 'error', title: 'Error', text: 'Something went wrong' });
   }
 }
 
@@ -147,11 +148,11 @@ async function importData($event) {
         data = formatData(data);
         insertData(data);
       } else {
-        // empty insertion
+        notify({ type: 'info', title: 'Info', text: 'Empty Insertion' });
       }
     };
   } else {
-    // error
+    notify({ type: 'error', title: 'Error', text: 'No file selected' });
   }
 }
 </script>

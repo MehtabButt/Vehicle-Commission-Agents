@@ -18,6 +18,7 @@
 import { computed } from 'vue';
 import { fetchRecord } from '@/composables/api.js';
 import { useStore } from 'vuex';
+import { notify } from '@kyvg/vue3-notification';
 
 const store = useStore();
 const props = defineProps({
@@ -57,10 +58,17 @@ async function crossEdit() {
 }
 function deleteRow() {
   store.dispatch('confirm', { message: 'Please confirm if you want to delete record.', confirmText: 'Delete' }).then(async () => {
-    await props.params.context.deleteRow(rowData.value);
+    const res = await props.params.context.deleteRow(rowData.value);
+    if (res) {
+      notify({ type: 'success', title: 'Success', text: 'Record deleted successfully.' });
+    } else notify({ type: 'error', title: 'Error', text: 'Record not deleted.' });
   });
 }
 async function updateRow() {
-  if (await props.params.context.updateRow(rowData.value, rowIdx.value)) crossEdit();
+  const res = await props.params.context.updateRow(rowData.value, rowIdx.value);
+  if (res) {
+    crossEdit();
+    notify({ type: 'success', title: 'Success', text: 'Record updated successfully.' });
+  } else notify({ type: 'error', title: 'Error', text: 'Record not updated.' });
 }
 </script>

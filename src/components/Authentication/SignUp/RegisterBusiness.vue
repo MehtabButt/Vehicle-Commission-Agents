@@ -106,6 +106,7 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import { notify } from '@kyvg/vue3-notification';
 
 const businessName = ref('');
 const businessAddress = ref('');
@@ -132,6 +133,11 @@ async function registerBusiness(e) {
   });
   if (res.status == 200) {
     router.push({ path: '/sign_in' });
+    notify({
+      type: 'info',
+      title: 'Info',
+      text: 'Business registered successfully'
+    });
   } else {
     for (const p in error) {
       delete error[p];

@@ -74,6 +74,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { notify } from '@kyvg/vue3-notification';
 
 const email = ref('');
 const password = ref('');
@@ -101,6 +102,11 @@ async function authenticate(e) {
     window.sessionStorage.setItem('currentUser', res.userId);
     errorRes.value = [];
     router.push({ name: 'createDeal' });
+    notify({
+      type: 'info',
+      title: 'Info',
+      text: 'You have successfully logged in'
+    });
   } else if (res.status == 500) {
     errorRes.value = res.error;
   }

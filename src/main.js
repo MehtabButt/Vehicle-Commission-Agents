@@ -26,6 +26,7 @@ import 'animate.css';
 import router from '@/routes';
 import store from '@/store/store';
 import emitter from 'tiny-emitter/instance';
+import Notifications from '@kyvg/vue3-notification';
 
 const app = createApp(App);
 
@@ -60,5 +61,6 @@ app.provide('eventHub', app.config.globalProperties.$eventHub);
 
 app.use(router);
 app.use(store);
+app.use(Notifications);
 
 app.mount('#app');
