@@ -11,10 +11,20 @@ function getExcept(obj, ...attributes) {
 }
 
 module.exports = {
-  async fetchRecords(event) {
+  async fetchRecords(event, params) {
+    let user;
+    try {
+      user = await User.findByPk(params.userId, { include: Business });
+      if (!user) throw new Error('User not found');
+      if (!user.Business) throw new Error('Business not found');
+    } catch (error) {
+      return { status: 500, error: error.message };
+    }
+
     try {
       const deals = await Deal.findAll({
-        include: ['Buyer', 'Seller', 'Witness', Vehicle]
+        include: ['Buyer', 'Seller', 'Witness', Vehicle],
+        where: { BusinessId: user.Business.dataValues.id }
       });
       return { status: 200, deal: JSON.stringify(deals) };
     } catch (err) {
@@ -68,9 +78,9 @@ module.exports = {
       return { status: 500, error: 'record updation failed' };
     }
   },
-  async fetchPersonalData(event) {
+  async fetchPersonalData(event, params) {
     try {
-      const user = await User.findOne();
+      const user = await User.findOne({ where: { id: params.userId } });
       const business = await user.getBusiness();
       delete user.dataValues.password;
       return { status: 200, data: JSON.stringify({ user, business }) };

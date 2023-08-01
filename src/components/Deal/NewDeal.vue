@@ -143,7 +143,7 @@ async function validate() {
       res = await window.Api.validateWitness(JSON.stringify(deal.value.witness));
       if (res.status == 200) {
         store.dispatch('confirm', { message: 'Please confirm if you want to save.', confirmText: 'Save' }).then(async () => {
-          const res = await window.Api.createDeal(JSON.stringify(deal.value));
+          const res = await window.Api.createDeal(JSON.stringify({ ...deal.value, userId: store.getters.currentUser }));
           if (res.status == 200) {
             notify({ type: 'success', title: 'Success', text: 'Deal saved successfully.' });
             store.commit('resetDeal');

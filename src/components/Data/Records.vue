@@ -38,6 +38,7 @@ import ExportImport from '@/components/Data/ExportImport.vue';
 import CustomTooltip from '@/components/Tooltips/CustomTooltip.vue';
 import { isEmpty } from 'lodash';
 import { useStore } from 'vuex';
+import { notify } from '@kyvg/vue3-notification';
 
 const store = useStore();
 
@@ -101,13 +102,12 @@ const columnDefs = ref([
 //RECORD FETCHING
 const rowData = ref([]);
 async function fetchData() {
-  try {
-    const res = await window.Api.fetchRecords();
-    if (res.status == 200) {
-      rowData.value = JSON.parse(res.deal);
-    }
-  } catch (err) {
+  const res = await window.Api.fetchRecords({ userId: store.getters.currentUser });
+  if (res.status == 200) {
+    rowData.value = JSON.parse(res.deal);
+  } else {
     rowData.value = [];
+    notify({ type: 'error', title: 'Error', text: 'Error fetching records.' });
   }
 }
 onMounted(async () => {

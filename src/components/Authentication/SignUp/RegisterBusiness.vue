@@ -136,7 +136,7 @@ async function registerBusiness(e) {
     notify({
       type: 'info',
       title: 'Info',
-      text: 'Business registered successfully'
+      text: 'User registered successfully'
     });
   } else {
     for (const p in error) {

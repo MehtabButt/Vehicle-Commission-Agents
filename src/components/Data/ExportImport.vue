@@ -24,7 +24,9 @@
 import { read, writeFile, utils } from 'xlsx';
 import { titleizeCamelCase, formatDate, toCamelCase } from '@/composables/utility.js';
 import { notify } from '@kyvg/vue3-notification';
+import { useStore } from 'vuex';
 
+const store = useStore();
 const emits = defineEmits(['import:success']);
 const props = defineProps({
   data: {
@@ -99,7 +101,7 @@ function exportData() {
     utils.book_append_sheet(workbook, worksheet, 'Deals Records');
     writeFile(workbook, 'Vehicle-Commission-Agents.xlsb');
   } else {
-    //show error msg
+    notify({ type: 'error', title: 'Error', text: 'Something went wrong' });
   }
 }
 
@@ -125,7 +127,7 @@ function formatData(data) {
 }
 
 async function insertData(data) {
-  const res = await window.Api.insertRecords(JSON.stringify({ records: data }));
+  const res = await window.Api.insertRecords(JSON.stringify({ records: data, userId: store.getters.currentUser }));
   if (res.status === 200) {
     emits('import:success');
     notify({ type: 'success', title: 'Success', text: 'Records Imported Successfully' });

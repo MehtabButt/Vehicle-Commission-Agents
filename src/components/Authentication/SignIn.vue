@@ -34,6 +34,7 @@
                   <input
                     name="password"
                     id="password"
+                    type="password"
                     placeholder="••••••••"
                     :class="[
                       error.password ? 'ring-1 ring-red-500 focus:outline-none' : 'ring-1 ring-gray-300',
@@ -92,12 +93,9 @@ const error = computed(() => {
 
 //AUTHENTICATION
 async function authenticate(e) {
-  // e.preventDefault();
-  // for (const e in error) {
-  //   delete error[e];
-  // }
   const res = await window.Api.authenticate({ email: email.value, password: password.value });
   if (res.status == 200) {
+    console.log(res);
     window.sessionStorage.clear();
     window.sessionStorage.setItem('currentUser', res.userId);
     errorRes.value = [];

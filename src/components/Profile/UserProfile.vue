@@ -178,6 +178,7 @@
 import { computed, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { groupBy } from 'lodash';
+import { notify } from '@kyvg/vue3-notification';
 import BaseTooltip from '@/components/Tooltips/BaseTooltip.vue';
 
 const store = useStore();
@@ -193,18 +194,18 @@ const business = computed({
 });
 async function fetchInfo() {
   try {
-    const response = await window.Api.fetchPersonalData();
+    const response = await window.Api.fetchPersonalData({ userId: store.getters.currentUser });
     if (response.status == 200) {
       const data = JSON.parse(response.data);
       user.value = data.user;
       business.value = data.business;
     }
   } catch {
-    //notify error
+    notify({ type: 'error', title: 'Error', text: 'Error fetching user details' });
   }
 }
-onMounted(async () => {
-  await fetchInfo();
+onMounted(() => {
+  fetchInfo();
 });
 
 //SAVING
@@ -214,7 +215,7 @@ async function handleSave() {
     errors.value = {};
     const res = await window.Api.updatePersonalData(JSON.stringify({ user: user.value, business: business.value }));
     if (res.status == 500 && res.error == 'update failed') {
-      //flash message
+      notify({ type: 'error', title: 'Error', text: 'Error updating user details' });
     } else if (res.status == 500) {
       const error = groupBy(res.error, e => e.path);
       Object.keys(error).forEach(key => {
@@ -222,11 +223,11 @@ async function handleSave() {
       });
       errors.value = error;
     } else {
-      //make flash message
-      console.log('res', res);
+      notify({ type: 'success', title: 'Success', text: 'User details updated successfully' });
     }
-  } catch {
-    //notify error via flash message
+  } catch (e) {
+    console.log(e);
+    notify({ type: 'error', title: 'Error', text: 'Something went wrong' });
   }
 }
 </script>

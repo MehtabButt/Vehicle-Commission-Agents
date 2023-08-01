@@ -60,6 +60,11 @@ export default createStore({
       contact: ''
     }
   },
+  getters: {
+    currentUser(state) {
+      return parseInt(window.sessionStorage.getItem('currentUser')) || null;
+    }
+  },
   mutations: {
     setBuyer(state, buyer) {
       state.deal.buyer = buyer;
