@@ -226,7 +226,6 @@ async function handleSave() {
       notify({ type: 'success', title: 'Success', text: 'User details updated successfully' });
     }
   } catch (e) {
-    console.log(e);
     notify({ type: 'error', title: 'Error', text: 'Something went wrong' });
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <Navbar class="z-[60]"></Navbar>
-  <ExportImport class="pt-10 justify-end m-3" :data="rowData" @import:success="fetchData" />
+  <ExportImport class="pt-12 justify-end pb-2 pr-2" :data="rowData" @import:success="fetchData" />
   <DataTable
     :column-defs="columnDefs"
     :default-col-def="{
@@ -121,14 +121,15 @@ const syncValueSetter = async params => {
   let res;
   params.data[model][attr] = params.newValue;
   res = await window.Api[`validate${model}`](JSON.stringify(params.data[model]));
-  if (res.status == 200) {
+  const modelErrors = res?.error?.filter(e => e.path == attr)?.map(e => e.message) || [];
+  if (!modelErrors.length) {
     if (validationChecks.value[params.node.rowIndex] && validationChecks.value[params.node.rowIndex][`${model}.${attr}`])
       delete validationChecks.value[params.node.rowIndex][`${model}.${attr}`];
     params.api.applyTransaction({ update: [params.data] });
     return true;
   } else {
     if (!validationChecks.value[params.node.rowIndex]) validationChecks.value[params.node.rowIndex] = {};
-    validationChecks.value[params.node.rowIndex][`${model}.${attr}`] = res.error.filter(e => e.path == attr).map(e => e.message);
+    validationChecks.value[params.node.rowIndex][`${model}.${attr}`] = modelErrors;
     params.api.applyTransaction({ update: [params.data] });
     return false;
   }

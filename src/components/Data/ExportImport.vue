@@ -156,5 +156,6 @@ async function importData($event) {
   } else {
     notify({ type: 'error', title: 'Error', text: 'No file selected' });
   }
+  $event.target.value = '';
 }
 </script>

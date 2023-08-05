@@ -95,7 +95,6 @@ const error = computed(() => {
 async function authenticate(e) {
   const res = await window.Api.authenticate({ email: email.value, password: password.value });
   if (res.status == 200) {
-    console.log(res);
     window.sessionStorage.clear();
     window.sessionStorage.setItem('currentUser', res.userId);
     errorRes.value = [];

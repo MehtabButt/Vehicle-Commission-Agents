@@ -92,7 +92,8 @@ async function insertRecords(event, params) {
     await t.commit();
     return { status: 200 };
   } catch (err) {
-    return { status: 500, error: err.errors };
+    await t.rollback();
+    return { status: 500, error: err.errors };  
   }
 }
 

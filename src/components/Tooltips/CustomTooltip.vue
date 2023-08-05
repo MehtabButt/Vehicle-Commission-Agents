@@ -11,13 +11,7 @@
 </template>
 
 <script setup>
-import { watch, onMounted } from 'vue';
-
 const props = defineProps({
   params: Object
-});
-
-onMounted(() => {
-  console.log(props.params.value);
 });
 </script>

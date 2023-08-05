@@ -50,7 +50,7 @@ async function crossEdit() {
   const record = await fetchRecord(rowData.value.id);
   if (record.status == 200) {
     props.params.context.clearValidationChecks(rowIdx.value);
-    gridApi.value.getRowNode(rowIdx.value).setData(JSON.parse(record.deal));
+    gridApi.value.getDisplayedRowAtIndex(rowIdx.value).setData(JSON.parse(record.deal));
     document.getElementById(`${editBtnId.value}`)?.classList.remove('hidden');
     document.getElementById(`${updateBtnId.value}`)?.classList.add('hidden');
     document.getElementById(`${crossBtnId.value}`)?.classList.add('hidden');

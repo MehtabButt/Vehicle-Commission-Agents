@@ -115,7 +115,6 @@ async function validate() {
       res = await window.Api.validateBuyer(JSON.stringify(deal.value.buyer));
       if (res.status == 200) return true;
       else {
-        console.log(res);
         errorRes.value = res.error;
         return false;
       }
@@ -123,7 +122,6 @@ async function validate() {
       res = await window.Api.validateVehicle(JSON.stringify(deal.value.vehicle));
       if (res.status == 200) return true;
       else {
-        console.log(res);
         errorRes.value = res.error;
         return false;
       }
@@ -135,7 +133,6 @@ async function validate() {
       res = await window.Api.validateSeller(JSON.stringify(deal.value.seller));
       if (res.status == 200) return true;
       else {
-        console.log(res);
         errorRes.value = res.error;
         return false;
       }
@@ -172,6 +169,7 @@ function animate(element, animation) {
 const currentIndex = ref(0);
 async function goNext() {
   if (await validate()) {
+    errorRes.value = [];
     if (currentIndex.value < 3) {
       const currEl = document.querySelector(`[data-index="${currentIndex.value}"`);
       const nextEl = document.querySelector(`[data-index="${currentIndex.value + 1}"`);

@@ -19,6 +19,7 @@ async function createWindow() {
   const win = new BrowserWindow({ webPreferences: { preload: path.resolve(app.getAppPath(), 'preload.js') } });
   // win.setMenu(null);
   win.maximize();
+  win.setMenu(null);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -52,7 +53,6 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  // console.log(vueJs3);
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
