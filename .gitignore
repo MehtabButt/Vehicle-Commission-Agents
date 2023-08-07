@@ -4,3 +4,5 @@ dist_electron/
 vehicle_commission_agents.sqlite
 yarn-error.log
 yarn.lock
+
+out/

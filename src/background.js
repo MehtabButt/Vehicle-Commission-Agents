@@ -8,11 +8,12 @@ const db = require('../server/src/models/index.js');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const path = require('path');
 const os = require('os');
-
 const vueJs3 = path.join(os.homedir(), '.config/google-chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/6.5.0_0');
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }]);
+
+if (require('electron-squirrel-startup')) app.quit();
 
 async function createWindow() {
   // Create the browser window.

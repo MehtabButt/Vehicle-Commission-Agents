@@ -1,6 +1,8 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "vehicle-commission-agents",
+  "description": "A desktop app for vehicle sale/purchase business",
+  "version": "1.0.0",
+  "author": "Mehtab Butt",
   "private": true,
   "scripts": {
     "preserve": "yarn --cwd ../server/ start &",
@@ -11,7 +13,10 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "rebuild": "electron-rebuild -f -w sqlite3"
+    "rebuild": "electron-rebuild -f -w sqlite3",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "main": "background.js",
   "dependencies": {
@@ -21,7 +26,9 @@
     "animate.css": "^4.1.1",
     "bcrypt": "^5.1.0",
     "core-js": "^3.8.3",
+    "electron-builder-squirrel-windows": "^24.6.3",
     "electron-rebuild": "^3.2.9",
+    "electron-squirrel-startup": "^1.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "lodash": "^4.17.21",
@@ -38,6 +45,12 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
