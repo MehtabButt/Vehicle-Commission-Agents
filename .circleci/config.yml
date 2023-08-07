@@ -9,7 +9,7 @@ jobs:
           command: |
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
             echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-      - run: source $BASH_ENV
+            cat $BASH_ENV
       - run: nvm install 16.20.0
       - run: node -v
       - run: npm -v
