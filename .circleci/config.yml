@@ -5,7 +5,8 @@ jobs:
       - image: electronuserland/builder:wine
     steps:
       - checkout
-      - run: nvm use
+      - run: yarn run preinstall
+      - run: yarn run prestart
       - run: yarn && yarn run build
       - store_artifacts:
           path: /root/project/build

@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "author": "Mehtab Butt",
   "private": true,
+  "engine": "node 16.20.0",
   "scripts": {
+    "preinstall": ". ~/.nvm/nvm.sh && nvm install 16.20.0",
+    "prestart": ". ~/.nvm/nvm.sh && nvm use 16.20.0",
     "preserve": "yarn --cwd ../server/ start &",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
