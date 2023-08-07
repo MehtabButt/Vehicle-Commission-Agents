@@ -11,15 +11,11 @@ jobs:
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-      - run:
-          name: setup node
-          command: |
-            nvm install v16.20.0
-            nvm use v16.20.0
+            nvm install v16.20.0 && nvm use v16.20.0
             node -v
             npm install --global yarn
             yarn -v
-      - run: yarn && yarn run build
+            yarn && yarn run build
       - store_artifacts:
           path: /root/project/build
 
