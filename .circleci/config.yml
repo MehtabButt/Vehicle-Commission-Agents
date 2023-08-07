@@ -6,20 +6,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: setup nvm
           command: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
-            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-            set +x
-            source ~/.bashrc
-            nvm install 16.20.0 && nvm use 16.20.0
-            node -v
-            npm install --global yarn
-            yarn -v
-            yarn && yarn run build
+            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
+            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+      - run: nvm install 16.20.0
+      - run: node -v
+      - run: npm -v
+      - run: nvm alias default 16.20.0
+      - run: nvm use 16.20.0
+      - run: node -v
+      - run: npm -v
+      - run: npm install && npm run build
       - store_artifacts:
           path: /root/project/build
 
