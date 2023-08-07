@@ -16,7 +16,9 @@
     "rebuild": "electron-rebuild -f -w sqlite3",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "release": "electron-builder --publish always",
+    "build:win32": "electron-builder --win"
   },
   "main": "background.js",
   "dependencies": {
