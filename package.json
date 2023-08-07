@@ -6,8 +6,8 @@
   "private": true,
   "engine": "node 16.20.0",
   "scripts": {
-    "preinstall": ". ~/.nvm/nvm.sh && nvm install 16.20.0",
-    "prestart": ". ~/.nvm/nvm.sh && nvm use 16.20.0",
+    "preinstall": "nvm install",
+    "prestart": "nvm use",
     "preserve": "yarn --cwd ../server/ start &",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
