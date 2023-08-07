@@ -13,7 +13,9 @@ jobs:
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-            source ~/.bashrc && nvm install v16.20.0 && nvm use v16.20.0
+            set +x
+            source ~/.bashrc
+            nvm install 16.20.0 && nvm use 16.20.0
             node -v
             npm install --global yarn
             yarn -v
