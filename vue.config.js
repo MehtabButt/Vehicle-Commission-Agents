@@ -1,17 +1,22 @@
-const { defineConfig } = require("@vue/cli-service");
+const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
   transpileDependencies: true,
   configureWebpack: {
-    devtool: "source-map",
+    devtool: 'source-map'
   },
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
-        appId: "client.app",
-        productName: "client",
+        asar: true,
+        appId: 'vehicle-commission-agents',
+        productName: 'Vehicle Commission Agents',
+        extends: null,
+        linux: {
+          target: ['deb']
+        }
       },
-      mainProcessFile: "src/background.js",
-      preload: "src/preload.js",
-    },
-  },
+      mainProcessFile: 'src/background/main.js',
+      rendererProcessFile: 'src/renderer/main.js'
+    }
+  }
 });

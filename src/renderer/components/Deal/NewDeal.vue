@@ -92,11 +92,11 @@
 </template>
 
 <script setup>
-import Member from '@/components/Deal/Member.vue';
-import Vehicle from '@/components/Deal/Vehicle.vue';
+import Member from '@/renderer/components/Deal/Member.vue';
+import Vehicle from '@/renderer/components/Deal/Vehicle.vue';
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
-import { isEmpty } from '@/composables/utility.js';
+import { isEmpty } from '@/renderer/composables/utility.js';
 import { notify } from '@kyvg/vue3-notification';
 
 const store = useStore();

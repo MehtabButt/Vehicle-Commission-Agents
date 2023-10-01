@@ -63,7 +63,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import ModalConfirmation from '@/components/Modal/ModalConfirmation.vue';
+import ModalConfirmation from '@/renderer/components/Modal/ModalConfirmation.vue';
 
 const flip = ref(false);
 const router = useRouter();

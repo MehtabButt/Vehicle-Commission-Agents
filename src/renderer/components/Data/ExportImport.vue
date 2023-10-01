@@ -22,7 +22,7 @@
 
 <script setup>
 import { read, writeFile, utils } from 'xlsx';
-import { titleizeCamelCase, formatDate, toCamelCase } from '@/composables/utility.js';
+import { titleizeCamelCase, formatDate, toCamelCase } from '@/renderer/composables/utility.js';
 import { notify } from '@kyvg/vue3-notification';
 import { useStore } from 'vuex';
 

@@ -23,7 +23,7 @@
 <script setup>
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import Action from '@/components/Data/Action.vue';
+import Action from '@/renderer/components/Data/Action.vue';
 import { AgGridVue } from 'ag-grid-vue3';
 import { computed } from 'vue';
 

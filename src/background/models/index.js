@@ -1,15 +1,15 @@
 const fs = require('fs');
 const Sequelize = require('sequelize');
-const config = require('../config/config');
+const config = require('../config/config.js');
 const db = {};
 
 const sequelize = new Sequelize(config.db.database, config.db.user, config.db.password, config.db.options);
 
-fs.readdirSync('./server/src/models').forEach(function (file) {
-  if (file !== 'index.js') {
-    db[file.substring(0, file.lastIndexOf('.')) || file] = require('./' + file)(sequelize, Sequelize.DataTypes, Sequelize.Model);
-  }
-});
+db['Business'] = require('./Business.js')(sequelize, Sequelize.DataTypes, Sequelize.Model);
+db['Deal'] = require('./Deal.js')(sequelize, Sequelize.DataTypes, Sequelize.Model);
+db['Member'] = require('./Member.js')(sequelize, Sequelize.DataTypes, Sequelize.Model);
+db['User'] = require('./User.js')(sequelize, Sequelize.DataTypes, Sequelize.Model);
+db['Vehicle'] = require('./Vehicle.js')(sequelize, Sequelize.DataTypes, Sequelize.Model);
 
 try {
   const User = db.User;

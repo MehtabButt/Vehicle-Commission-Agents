@@ -136,7 +136,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import { allowDigitOnly } from '@/composables/utility';
+import { allowDigitOnly } from '@/renderer/composables/utility';
 
 const store = useStore();
 const props = defineProps({

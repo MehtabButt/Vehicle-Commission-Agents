@@ -16,7 +16,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import { fetchRecord } from '@/composables/api.js';
+import { fetchRecord } from '@/renderer/composables/api.js';
 import { useStore } from 'vuex';
 import { notify } from '@kyvg/vue3-notification';
 

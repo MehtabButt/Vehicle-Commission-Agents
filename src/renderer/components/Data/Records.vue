@@ -33,9 +33,9 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import DataTable from '@/components/Data/DataTable.vue';
-import ExportImport from '@/components/Data/ExportImport.vue';
-import CustomTooltip from '@/components/Tooltips/CustomTooltip.vue';
+import DataTable from '@/renderer/components/Data/DataTable.vue';
+import ExportImport from '@/renderer/components/Data/ExportImport.vue';
+import CustomTooltip from '@/renderer/components/Tooltips/CustomTooltip.vue';
 import { isEmpty } from 'lodash';
 import { useStore } from 'vuex';
 import { notify } from '@kyvg/vue3-notification';

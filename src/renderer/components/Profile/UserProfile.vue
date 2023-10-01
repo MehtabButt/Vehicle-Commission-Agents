@@ -179,7 +179,7 @@ import { computed, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { groupBy } from 'lodash';
 import { notify } from '@kyvg/vue3-notification';
-import BaseTooltip from '@/components/Tooltips/BaseTooltip.vue';
+import BaseTooltip from '@/renderer/components/Tooltips/BaseTooltip.vue';
 
 const store = useStore();
 

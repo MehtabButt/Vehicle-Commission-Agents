@@ -1,4 +1,6 @@
 const sqlite3 = require('sqlite3');
+const { app } = require('electron');
+const path = require('path');
 
 module.exports = {
   db: {
@@ -9,7 +11,10 @@ module.exports = {
       dialect: process.env.DIALECT || 'sqlite',
       dialectModule: process.env.DIALECT_MODULE || sqlite3,
       host: process.env.HOST || 'localhost',
-      storage: './vehicle_commission_agents.sqlite'
+      storage:
+        process.env.NODE_ENV == 'production'
+          ? path.resolve(app.getPath('userData'), './vehicle_commission_agents.sqlite')
+          : './vehicle_commission_agents.sqlite'
     }
   }
 };

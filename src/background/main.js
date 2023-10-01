@@ -1,23 +1,32 @@
 'use strict';
 
-import { app, session, protocol, BrowserWindow, ipcMain } from 'electron';
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
-// const lodash = require('lodash');
-// import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
-const db = require('../server/src/models/index.js');
+require('./models');
+const { app, session, protocol, BrowserWindow, ipcMain } = require('electron');
+const { createProtocol } = require('vue-cli-plugin-electron-builder/lib');
+const db = require('./models/index.js');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const path = require('path');
 const os = require('os');
-const vueJs3 = path.join(os.homedir(), '.config/google-chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/6.5.0_0');
+const routes = require('./routes.js');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }]);
 
-if (require('electron-squirrel-startup')) app.quit();
-
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({ webPreferences: { preload: path.resolve(app.getAppPath(), 'preload.js') } });
+  const win = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      // __static is set by webpack and will point to the public directory
+      preload: path.resolve(__static, 'preload.js')
+    },
+    frame: false
+  });
   // win.setMenu(null);
   win.maximize();
   win.setMenu(null);
@@ -29,7 +38,7 @@ async function createWindow() {
   } else {
     createProtocol('app');
     // Load the index.html when not in development
-    win.loadFile('app://./index.html');
+    win.loadFile('index.html');
   }
 }
 
@@ -57,6 +66,7 @@ app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
+      const vueJs3 = path.join(os.homedir(), '.config/google-chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/6.5.0_0');
       await session.defaultSession.loadExtension(vueJs3);
       console.log('vue js 3 extension added');
     } catch (e) {
@@ -72,9 +82,10 @@ app.on('ready', async () => {
     .catch(err => {
       console.log('db failed to sync', err);
     });
-  require('../server/src/routes.js')(ipcMain);
+  routes(ipcMain);
   createWindow();
 });
+// app.on('ready', createWindow());
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {

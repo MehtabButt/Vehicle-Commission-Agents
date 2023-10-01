@@ -35,7 +35,7 @@
 }
 .success::before {
   content: '';
-  background: url(@/assets/success.png) no-repeat;
+  background: url(@/renderer/assets/success.png) no-repeat;
   width: 22px;
   height: 22px;
   float: left;
@@ -45,7 +45,7 @@
 }
 .info::before {
   content: '';
-  background: url(@/assets/info.png) no-repeat;
+  background: url(@/renderer/assets/info.png) no-repeat;
   width: 30px;
   height: 30px;
   float: left;
@@ -56,7 +56,7 @@
 }
 .error::before {
   content: '';
-  background: url(@/assets/error.png) no-repeat;
+  background: url(@/renderer/assets/error.png) no-repeat;
   width: 22px;
   height: 22px;
   float: left;
