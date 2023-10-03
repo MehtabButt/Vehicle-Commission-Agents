@@ -1,166 +1,171 @@
 <template>
   <Navbar class="z-[60]"></Navbar>
-  <div class="flex h-[100vh] overflow-y-hidden bg-gray-100 justify-center pt-14 pb-10">
-    <div class="mt-5 relative bg-white rounded-lg shadow w-1/2">
-      <div class="flex">
-        <div class="flex text-gray-700 py-5 pl-5 overflow-hidden space-x-1 items-center">
-          <icon-personal :size="'h-5 w-5'" />
-          <h1 class="inline text-2xl font-semibold leading-none">Personal Info</h1>
+  <div class="flex overflow-y-hidden bg-gray-100 justify-center mt-10" style="height: calc(100vh - 40px)">
+    <div class="my-5 flex flex-col relative bg-white rounded-lg shadow w-1/2">
+      <div class="overflow-y-auto">
+        <div class="flex">
+          <div class="flex text-gray-700 py-5 pl-5 overflow-hidden space-x-1 items-center">
+            <icon-personal :size="'h-5 w-5'" />
+            <h1 class="inline text-2xl font-semibold leading-none">Personal Info</h1>
+          </div>
         </div>
-      </div>
-      <div class="px-5 pb-5 space-y-5">
-        <div>
-          <label>Name</label>
-          <div class="flex space-x-2">
-            <div class="relative w-full flex items-center">
-              <icon-info-outlined
-                v-if="errors.firstName"
-                :size="'h-5 w-5'"
-                class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
-              />
-              <BaseTooltip title="First Name" :content="errors.firstName" class="absolute z-10 left-[28rem] tooltip" />
-              <input
-                placeholder="First Name"
-                v-model="user.firstName"
-                class="text-gray-700 placeholder-gray-600 w-full pl-4 pr-10 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
-              />
+        <div class="px-5 pb-5 space-y-5">
+          <div>
+            <label>Name</label>
+            <div class="flex space-x-2">
+              <div class="relative w-full flex items-center">
+                <icon-info-outlined
+                  v-if="errors.firstName"
+                  :size="'h-5 w-5'"
+                  class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
+                />
+                <BaseTooltip title="First Name" :content="errors.firstName" class="absolute z-10 left-[28rem] tooltip" />
+                <input
+                  placeholder="First Name"
+                  v-model="user.firstName"
+                  class="text-gray-700 placeholder-gray-600 w-full pl-4 pr-10 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
+                />
+              </div>
+              <div class="relative w-full flex items-center">
+                <icon-info-outlined
+                  v-if="errors.lastName"
+                  :size="'h-5 w-5'"
+                  class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
+                />
+                <BaseTooltip title="Last Name" :content="errors.lastName" class="absolute z-10 left-[28rem] tooltip" />
+                <input
+                  placeholder="Last Name"
+                  v-model="user.lastName"
+                  class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
+                />
+              </div>
             </div>
+          </div>
+          <div>
+            <label>Email</label>
             <div class="relative w-full flex items-center">
               <icon-info-outlined
-                v-if="errors.lastName"
+                v-if="errors.email"
                 :size="'h-5 w-5'"
                 class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
               />
-              <BaseTooltip title="Last Name" :content="errors.lastName" class="absolute z-10 left-[28rem] tooltip" />
+              <BaseTooltip title="Email" :content="errors.email" class="absolute z-10 right-[-17rem] tooltip" />
               <input
-                placeholder="Last Name"
-                v-model="user.lastName"
+                placeholder="Email"
+                v-model="user.email"
                 class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
               />
             </div>
           </div>
-        </div>
-        <div>
-          <label>Email</label>
-          <div class="relative w-full flex items-center">
-            <icon-info-outlined v-if="errors.email" :size="'h-5 w-5'" class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info" />
-            <BaseTooltip title="Email" :content="errors.email" class="absolute z-10 right-[-17rem] tooltip" />
-            <input
-              placeholder="Email"
-              v-model="user.email"
-              class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
-            />
+          <div>
+            <label>New Password</label>
+            <div class="space-y-2">
+              <div class="relative w-full flex items-center">
+                <icon-info-outlined
+                  v-if="errors.password"
+                  :size="'h-5 w-5'"
+                  class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
+                />
+                <BaseTooltip title="Password" :content="errors.password" class="absolute z-10 right-[-17rem] tooltip" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  v-model="user.password"
+                  class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
+                />
+              </div>
+              <div class="relative w-full flex items-center">
+                <icon-info-outlined
+                  v-if="errors.confirmPassword"
+                  :size="'h-5 w-5'"
+                  class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
+                />
+                <BaseTooltip title="Confirm Password" :content="errors.confirmPassword" class="absolute z-10 right-[-17rem] tooltip" />
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  v-model="user.confirmPassword"
+                  class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <label>New Password</label>
-          <div class="space-y-2">
+          <div>
+            <label>Current Password</label>
             <div class="relative w-full flex items-center">
               <icon-info-outlined
-                v-if="errors.password"
+                v-if="errors.currentPassword"
                 :size="'h-5 w-5'"
                 class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
               />
-              <BaseTooltip title="Password" :content="errors.password" class="absolute z-10 right-[-17rem] tooltip" />
+              <BaseTooltip title="Current Password" :content="errors.currentPassword" class="absolute z-10 right-[-17rem] tooltip" />
               <input
                 type="password"
                 placeholder="Password"
-                v-model="user.password"
+                v-model="user.currentPassword"
                 class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
               />
             </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="flex text-gray-700 py-5 pl-5 overflow-hidden space-x-1 items-center">
+            <icon-business :size="'h-5 w-5'" />
+            <h1 class="inline text-2xl font-semibold leading-none">Business Info</h1>
+          </div>
+        </div>
+        <div class="px-5 pb-5 space-y-5">
+          <div>
+            <label>Business Name</label>
             <div class="relative w-full flex items-center">
               <icon-info-outlined
-                v-if="errors.confirmPassword"
+                v-if="errors.companyName"
                 :size="'h-5 w-5'"
                 class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
               />
-              <BaseTooltip title="Confirm Password" :content="errors.confirmPassword" class="absolute z-10 right-[-17rem] tooltip" />
+              <BaseTooltip title="Company Name" :content="errors.companyName" class="absolute z-10 right-[-17rem] tooltip" />
               <input
-                type="password"
-                placeholder="Confirm Password"
-                v-model="user.confirmPassword"
+                placeholder="Business Name"
+                v-model="business.companyName"
+                class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
+              />
+            </div>
+          </div>
+          <div>
+            <label>Business Address</label>
+            <div class="relative w-full flex items-center">
+              <icon-info-outlined
+                v-if="errors.address"
+                :size="'h-5 w-5'"
+                class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
+              />
+              <BaseTooltip title="Business Address" :content="errors.address" class="absolute z-10 right-[-17rem] tooltip" />
+              <input
+                placeholder="Business Address"
+                v-model="business.address"
+                class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
+              />
+            </div>
+          </div>
+          <div>
+            <label>Contact Number</label>
+            <div class="relative w-full flex items-center">
+              <icon-info-outlined
+                v-if="errors.contact"
+                :size="'h-5 w-5'"
+                class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
+              />
+              <BaseTooltip title="Contact" :content="errors.contact" class="absolute z-10 right-[-17rem] tooltip" />
+              <input
+                placeholder="Contact Number(+923xxxxxxxxx)"
+                v-model="business.contact"
                 class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
               />
             </div>
           </div>
         </div>
-        <div>
-          <label>Current Password</label>
-          <div class="relative w-full flex items-center">
-            <icon-info-outlined
-              v-if="errors.currentPassword"
-              :size="'h-5 w-5'"
-              class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
-            />
-            <BaseTooltip title="Current Password" :content="errors.currentPassword" class="absolute z-10 right-[-17rem] tooltip" />
-            <input
-              type="password"
-              placeholder="Password"
-              v-model="user.currentPassword"
-              class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
-            />
-          </div>
-        </div>
       </div>
-      <div class="flex">
-        <div class="flex text-gray-700 py-5 pl-5 overflow-hidden space-x-1 items-center">
-          <icon-business :size="'h-5 w-5'" />
-          <h1 class="inline text-2xl font-semibold leading-none">Business Info</h1>
-        </div>
-      </div>
-      <div class="px-5 pb-5 space-y-5">
-        <div>
-          <label>Business Name</label>
-          <div class="relative w-full flex items-center">
-            <icon-info-outlined
-              v-if="errors.companyName"
-              :size="'h-5 w-5'"
-              class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
-            />
-            <BaseTooltip title="Company Name" :content="errors.companyName" class="absolute z-10 right-[-17rem] tooltip" />
-            <input
-              placeholder="Business Name"
-              v-model="business.companyName"
-              class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
-            />
-          </div>
-        </div>
-        <div>
-          <label>Business Address</label>
-          <div class="relative w-full flex items-center">
-            <icon-info-outlined
-              v-if="errors.address"
-              :size="'h-5 w-5'"
-              class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
-            />
-            <BaseTooltip title="Business Address" :content="errors.address" class="absolute z-10 right-[-17rem] tooltip" />
-            <input
-              placeholder="Business Address"
-              v-model="business.address"
-              class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
-            />
-          </div>
-        </div>
-        <div>
-          <label>Contact Number</label>
-          <div class="relative w-full flex items-center">
-            <icon-info-outlined
-              v-if="errors.contact"
-              :size="'h-5 w-5'"
-              class="absolute z-10 right-0 text-red-400 mr-2 hover:text-red-500 icon-info"
-            />
-            <BaseTooltip title="Contact" :content="errors.contact" class="absolute z-10 right-[-17rem] tooltip" />
-            <input
-              placeholder="Contact Number(+923xxxxxxxxx)"
-              v-model="business.contact"
-              class="text-gray-700 placeholder-gray-600 w-full px-4 py-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:bg-white focus:outline-none focus:ring-1 ring-gray-400"
-            />
-          </div>
-        </div>
-      </div>
-      <hr class="mt-4" />
-      <div class="absolute flex p-3 bottom-0 right-0">
+      <div class="flex justify-end items-end flex-1 p-3 bottom-0 right-0">
         <div class="flex-initial pl-3">
           <button type="button" class="custom-btn btn-1" @click="handleSave">
             <div class="flex items-center justify-center space-x-2">

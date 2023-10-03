@@ -33,7 +33,7 @@
     </nav>
     <div
       id="dropdown"
-      class="z-[50] w-36 absolute top-0 right-0 rounded-b-lg mr-3 mt-10 divide-y divide-gray-100 shadow bg-gray-300"
+      class="z-[50] w-36 absolute top-0 right-0 rounded-b-lg mr-3 divide-y divide-gray-100 shadow bg-gray-300"
       :class="{ hidden: !flip }"
       @mouseover="flip = true"
       @mouseleave="flip = false"

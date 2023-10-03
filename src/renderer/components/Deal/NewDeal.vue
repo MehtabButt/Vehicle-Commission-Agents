@@ -1,6 +1,6 @@
 <template>
   <Navbar class="z-[60]"></Navbar>
-  <div class="flex h-[100vh] overflow-hidden">
+  <div class="flex overflow-hidden mt-10" style="height: calc(100vh - 40px)">
     <div class="w-1/3 flex justify-center items-center z-50 bg-gray-50">
       <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="vertical">
         <li>
@@ -56,16 +56,16 @@
         </li>
       </ul>
     </div>
-    <div class="w-2/3 mt-10">
-      <div class="h-4/6 mt-16 flex flex-col justify-end relative">
-        <div class="flex justify-center w-4/5 text-4xl font-bold leading-none tracking-tight text-gray-900">Deal Making...</div>
-        <div class="relative h-[27rem] max-w-screen-lg">
-          <Member class="absolute top-10 shadow-lg animate__animated z-40" data-index="0" role="buyer" :errors="errors"></Member>
-          <Vehicle class="absolute shadow-lg top-10 animate__animated hidden z-40" data-index="1" :errors="errors"></Vehicle>
-          <Member class="absolute shadow-lg top-10 animate__animated hidden z-40" data-index="2" role="seller" :errors="errors"></Member>
-          <Member class="absolute shadow-lg top-10 animate__animated hidden z-40" data-index="3" role="witness" :errors="errors"></Member>
+    <div class="w-2/3 flex items-center">
+      <div class="h-full flex flex-col w-full justify-center space-y-5">
+        <div class="flex justify-center max-w-screen-lg text-4xl font-bold leading-none tracking-tight text-gray-900">Create Deal</div>
+        <div class="grid max-w-screen-lg grid-cols-1">
+          <Member class="col-span-1 top-0 shadow-lg animate__animated z-40" data-index="0" role="buyer" :errors="errors"></Member>
+          <Vehicle class="col-span-1 shadow-lg top-10 animate__animated hidden z-40" data-index="1" :errors="errors"></Vehicle>
+          <Member class="col-span-1 shadow-lg top-10 animate__animated hidden z-40" data-index="2" role="seller" :errors="errors"></Member>
+          <Member class="col-span-1 shadow-lg top-10 animate__animated hidden z-40" data-index="3" role="witness" :errors="errors"></Member>
         </div>
-        <div class="flex justify-end mr-48 mt-14 pr-4">
+        <div class="flex justify-end max-w-screen-lg">
           <button
             type="button"
             class="text-white rounded-l-md border-r py-2 px-3"
