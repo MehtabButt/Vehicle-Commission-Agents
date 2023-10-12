@@ -1,6 +1,6 @@
 <template>
   <Navbar class="z-[60]"></Navbar>
-  <ExportImport class="pt-12 justify-end pb-2 pr-2" :data="rowData" @import:success="fetchData" />
+  <ExportImport class="pt-2 mt-10 justify-end pb-2 pr-2" :data="rowData" @import:success="fetchData" />
   <DataTable
     :column-defs="columnDefs"
     :default-col-def="{

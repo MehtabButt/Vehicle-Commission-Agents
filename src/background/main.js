@@ -24,10 +24,8 @@ async function createWindow() {
       enableRemoteModule: false,
       // __static is set by webpack and will point to the public directory
       preload: path.resolve(__static, 'preload.js')
-    },
-    frame: false
+    }
   });
-  // win.setMenu(null);
   win.maximize();
   win.setMenu(null);
 
